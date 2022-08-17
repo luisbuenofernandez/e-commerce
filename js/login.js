@@ -15,7 +15,7 @@ boton.addEventListener("click", function () {       // La funcion se ejecuta si 
 
 		if ((usuario.length && contrasenia.length) > 0) {  // Si el largo de los datos ingresados es mayor a 0, entonces continua
 			location.href = "portada.html";      // Readirecciona al usuario a portada.html 
-            alert('¡Bienvenido/a a e-Mercado!');
+            alert('¡Bienvenido/a a eMercado!');
         
         } else{ // Mostrar en rojo los campos que faltan completar
 

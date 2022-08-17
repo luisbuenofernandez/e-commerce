@@ -1,4 +1,4 @@
-main {
+.login {                        /* div que le sigue a main */
     margin-left: 25%;
     margin-right: 25%;
     margin-top: 5%;
@@ -11,13 +11,13 @@ main {
     border-color: rgb(107, 135, 159);
 }
 
-.redondear {
+.redondear {                    /* campos a competar */
     border-radius: 2rem;
     text-align: center;
     border-style: dashed;
 }
 
-button {
+button {                        /* boton inicar sesion */
     border-radius: 2rem;
     border-style: solid;
     border-color: rgb(3, 113, 216);
@@ -25,6 +25,6 @@ button {
     color: white;
 }
 
-#error {
+#error {                        /* campos faltantes */
     color: tomato;
 }
