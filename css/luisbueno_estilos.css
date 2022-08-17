@@ -1,0 +1,30 @@
+.login {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 5%;
+    text-align: center;
+
+    background-color: rgb(231, 246, 251);
+    border-radius: 10px;
+    padding: 20px;
+    border-style: solid;
+    border-color: rgb(107, 135, 159);
+}
+
+.redondear {
+    border-radius: 2rem;
+    text-align: center;
+    border-style: dashed;
+}
+
+button {
+    border-radius: 2rem;
+    border-style: solid;
+    border-color: rgb(3, 113, 216);
+    background-color: rgb(0, 132, 255);
+    color: white;
+}
+
+#error {
+    color: tomato;
+}
