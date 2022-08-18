@@ -1,0 +1,24 @@
+
+h2{
+    text-align: justify;
+}
+
+img {
+    height: auto;
+    justify-items:;
+
+}
+
+
+table {
+    border-color: red;
+    background-color: antiquewhite;
+
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+tbody {
+    border-color: black;
+}
