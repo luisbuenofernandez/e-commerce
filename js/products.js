@@ -1,5 +1,5 @@
 let autos_json = "https://japceibal.github.io/emercado-api/cats_products/101.json";
-let ul_en_index = document.getElementById("tabla");
+let div_id_tabla = document.getElementById("tabla");
 
 function mostrarAutos(autos_array) {
 	console.log(autos_array);
@@ -7,28 +7,18 @@ function mostrarAutos(autos_array) {
 	let contenido_a_agregar = ``;
 
 	for (const auto of autos_array) {
-		contenido_a_agregar = `<div><tr><img src=" ${auto.image}" alt="${auto.name}">
-       <h2> ${auto.name}</h2> 
-       <small>
-       Vendidos: ${auto.soldCount}
-      </small>
-       <h3> ${auto.currency} ${auto.cost}</h3>
-       <p> ${auto.description}</p>
-       </tr>
+		contenido_a_agregar = `<div>
         
-        </div>
-        
-       `;
+        <img src=" ${auto.image}" alt="${auto.name}" >
+        <h2> ${auto.name}</h2> 
+        <h4> ${auto.currency} ${auto.cost}</h4>
+        <p> ${auto.description}</p>
+        <small> ${auto.soldCount} vendidos. </small>
+        <hr>
        
-		/* id": 50921,
-        "name": "Chevrolet Onix Joy",
-        "description": "Generación 2019, variedad de colores. Motor 1.0, ideal para ciudad.",
-        "cost": 13500,
-        "currency": "USD",
-        "soldCount": 14,
-        "image": "img/prod50921_1.jpg" */
-
-		ul_en_index.innerHTML += contenido_a_agregar;
+        </div>`;
+       
+       div_id_tabla.innerHTML += contenido_a_agregar;
 	}
 }
 

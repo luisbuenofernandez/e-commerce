@@ -1,0 +1,30 @@
+h1, h3{
+    text-align: center;
+}
+
+h1{
+    margin-top: 25px;
+}
+
+#tabla {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    background-color: rgb(231, 246, 251);
+    border-radius: 5px;
+    padding: 20px;
+    border-style: solid;
+    border-color: rgb(107, 135, 159);
+    
+}
+
+img {
+    height: 150px;
+    border-radius: 3px;
+    float: left; /* coloca a la imagen a la izquieda y permite texto a su lado */
+    margin-right: 15px;
+    margin-bottom: 15px;
+
+}

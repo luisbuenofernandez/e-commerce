@@ -1,7 +1,8 @@
 let boton = document.getElementById("entrar");
-let error = document.getElementById('error'); 
+let error = document.getElementById("error"); 
 
-boton.addEventListener("click", function () {       // La funcion se ejecuta si es pulsado el boton de iniciar sesion
+boton.addEventListener("click", function () {       
+    // La funcion se ejecuta si es pulsado el boton de iniciar sesion
     
 		let campos_requeridos = document.getElementsByClassName("datos"); //Toma lo que haya en los campos
         let valor_campos = [];
@@ -15,7 +16,7 @@ boton.addEventListener("click", function () {       // La funcion se ejecuta si 
 
 		if ((usuario.length && contrasenia.length) > 0) {  // Si el largo de los datos ingresados es mayor a 0, entonces continua
 			location.href = "portada.html";      // Readirecciona al usuario a portada.html 
-            alert('¡Bienvenido/a a eMercado!');
+            alert("¡Bienvenido/a a eMercado!");
         
         } else{ // Mostrar en rojo los campos que faltan completar
 
