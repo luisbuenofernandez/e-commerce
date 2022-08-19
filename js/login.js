@@ -2,17 +2,13 @@ let boton = document.getElementById("entrar");
 let error = document.getElementById("error"); 
 
 boton.addEventListener("click", function () {       
-    // La funcion se ejecuta si es pulsado el boton de iniciar sesion
+    // La funcion se ejecuta si es pulsado el boton de iniciar sesión
     
 		let campos_requeridos = document.getElementsByClassName("datos"); //Toma lo que haya en los campos
-        let valor_campos = [];
         
-		for (let ii = 0; ii < campos_requeridos.length; ii++) {	// Toma lo que haya en ese indice de campos_requeridos y guarda el valor en valor_campos
-        valor_campos.push(campos_requeridos[ii].value);      
-		}
-		
-        let usuario = valor_campos[0];
-        let contrasenia = valor_campos[1];
+        let usuario = campos_requeridos[0].value;
+        let contrasenia = campos_requeridos[1].value;
+        console.log(usuario + '' + contrasenia);
 
 		if ((usuario.length && contrasenia.length) > 0) {  // Si el largo de los datos ingresados es mayor a 0, entonces continua
 			location.href = "portada.html";      // Readirecciona al usuario a portada.html 
