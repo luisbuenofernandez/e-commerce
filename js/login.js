@@ -8,7 +8,6 @@ boton.addEventListener("click", function () {
         
         let usuario = campos_requeridos[0].value;
         let contrasenia = campos_requeridos[1].value;
-        console.log(usuario + '' + contrasenia);
 
 		if ((usuario.length && contrasenia.length) > 0) {  // Si el largo de los datos ingresados es mayor a 0, entonces continua
 			location.href = "portada.html";      // Readirecciona al usuario a portada.html 

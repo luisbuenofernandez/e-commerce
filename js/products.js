@@ -1,8 +1,7 @@
 let autos_json = "https://japceibal.github.io/emercado-api/cats_products/101.json";
-let div_id_tabla = document.getElementById("tabla");
+let automoviles = document.getElementById("automoviles");
 
 function mostrarAutos(autos_array) {
-	console.log(autos_array);
 
 	let contenido_a_agregar = ``;
 
@@ -18,7 +17,7 @@ function mostrarAutos(autos_array) {
        
         </div>`;
        
-       div_id_tabla.innerHTML += contenido_a_agregar;
+       automoviles.innerHTML += contenido_a_agregar;
 	}
 }
 
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	fetch(autos_json)
 		.then((respuesta) => respuesta.json())
 		.then((datos) => {
-
 			autos = datos.products;
 			mostrarAutos(autos);
 		});
