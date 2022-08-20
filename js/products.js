@@ -28,5 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		.then((datos) => {
 			autos = datos.products;
 			mostrarAutos(autos);
-		});
+		})
+		.catch(data);
 });

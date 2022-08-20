@@ -1,4 +1,4 @@
-.login {                        /* div que le sigue a main */
+.login {                        /* div class = "login" */
     margin-left: 25%;
     margin-right: 25%;
     margin-top: 5%;
@@ -26,6 +26,7 @@ button {                        /* boton inicar sesion */
     color: white;
 }
 
-#error {                        /* campos faltantes */
-    color: tomato;
+#error {                        /* mensaje de campos faltantes */
+    color: rgb(255, 46, 46);
+       
 }
