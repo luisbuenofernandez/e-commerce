@@ -13,9 +13,8 @@ function mostrarAutos(autos_array) {
         <h4> ${auto.currency} ${auto.cost}</h4>
         <p> ${auto.description}</p>
         <small> ${auto.soldCount} vendidos. </small>
-        <hr>
-       
-        </div>`;
+        </div>
+		<hr>`;
        
        automoviles.innerHTML += contenido_a_agregar;
 	}
