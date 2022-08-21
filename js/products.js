@@ -29,5 +29,5 @@ document.addEventListener("DOMContentLoaded", function () {
 			autos = datos.products;
 			mostrarAutos(autos);
 		})
-		.catch(data);
+		.catch(error => alert(error));
 });
