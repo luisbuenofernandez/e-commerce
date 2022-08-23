@@ -10,7 +10,10 @@ boton.addEventListener("click", function () {
         let contrasenia = campos_requeridos[1].value;
 
 		if ((usuario.length && contrasenia.length) > 0) {  // Si el largo de los datos ingresados es mayor a 0, entonces continua
-			location.href = "portada.html";      // Readirecciona al usuario a portada.html 
+			
+            localStorage.setItem('nombreUsuario', usuario);  // Guarda el usuario en el almacenamiento local
+            
+            location.href = "portada.html";      // Readirecciona al usuario a portada.html 
             alert("¡Bienvenido/a a eMercado!");
         
         } else{ // Mostrar en rojo los campos que faltan completar
