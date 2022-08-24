@@ -1,4 +1,6 @@
-let autos_json = "https://japceibal.github.io/emercado-api/cats_products/101.json";
+let catId = localStorage.getItem("catID");
+
+let autos_json = "https://japceibal.github.io/emercado-api/cats_products/" + catId +".json";
 let automoviles = document.getElementById("automoviles");
 
 function mostrarAutos(autos_array) {
