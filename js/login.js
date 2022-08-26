@@ -1,6 +1,12 @@
 let boton = document.getElementById("entrar");
 let error = document.getElementById("error"); 
 
+
+if (localStorage.getItem('nombreUsuario')){
+    location.href = "portada.html";
+
+}
+
 boton.addEventListener("click", function () {       
     // La funcion se ejecuta si es pulsado el boton de iniciar sesión
     
@@ -14,7 +20,6 @@ boton.addEventListener("click", function () {
             localStorage.setItem('nombreUsuario', usuario);  // Guarda el usuario en el almacenamiento local
             
             location.href = "portada.html";      // Readirecciona al usuario a portada.html 
-            alert("¡Bienvenido/a a eMercado!");
         
         } else{ // Mostrar en rojo los campos que faltan completar
 

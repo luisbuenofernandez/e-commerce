@@ -15,7 +15,7 @@ body {
 }
 
 
-#automoviles {     
+#productos {     
     border-radius: 10px;    
     border-style: solid;
     border-color: rgb(107, 135, 159);
@@ -25,12 +25,14 @@ body {
     
 }
 
-#automoviles div {
+#productos div {
     padding: 20px;
 }
 
 img {
     height: 150px;
+    border-style: solid;
+    border-color: rgb(107, 135, 159);
     border-radius: 5px;
     float: left; /* coloca a la imagen a la izquieda y permite texto a su lado */
     margin-right: 15px;

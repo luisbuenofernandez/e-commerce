@@ -1,35 +1,34 @@
-let catId = localStorage.getItem("catID");
+let cat_Id = localStorage.getItem("catID");
+let productos_url = "https://japceibal.github.io/emercado-api/cats_products/" + cat_Id + ".json";
+let espacio_en_html = document.getElementById("productos");
+let productos_array = [];
 
-let autos_json = "https://japceibal.github.io/emercado-api/cats_products/" + catId +".json";
-let automoviles = document.getElementById("automoviles");
+function mostrarProducto(productos_array) {
 
-function mostrarAutos(autos_array) {
+	let producto_a_agregar = ``;
 
-	let contenido_a_agregar = ``;
-
-	for (const auto of autos_array) {
-		contenido_a_agregar = `<div>
+	for (const elemento of productos_array) {
+		producto_a_agregar = `<div>
         
-        <img src=" ${auto.image}" alt="${auto.name}" >
-        <h2> ${auto.name}</h2> 
-        <h4> ${auto.currency} ${auto.cost}</h4>
-        <p> ${auto.description}</p>
-        <small> ${auto.soldCount} vendidos. </small>
+        <img src=" ${elemento.image}" alt="${elemento.name}" >
+        <h2> ${elemento.name}</h2> 
+        <h4> ${elemento.currency} ${elemento.cost}</h4>
+        <p> ${elemento.description}</p>
+        <small> ${elemento.soldCount} vendidos. </small>
         </div>
 		<hr>`;
        
-       automoviles.innerHTML += contenido_a_agregar;
+       espacio_en_html.innerHTML += producto_a_agregar;
 	}
 }
 
-let autos = [];
 
 document.addEventListener("DOMContentLoaded", function () {
-	fetch(autos_json)
+	fetch(productos_url)
 		.then((respuesta) => respuesta.json())
 		.then((datos) => {
-			autos = datos.products;
-			mostrarAutos(autos);
+			productos_array = datos.products;
+			mostrarProducto(productos_array);
 		})
 		.catch(error => alert(error));
 });
