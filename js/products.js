@@ -7,42 +7,69 @@ const boton_rel = document.getElementById('sortByCount');
 const boton_asc = document.getElementById('sortAsc');
 const boton_desc = document.getElementById('sortDesc');
 
+let min = document.getElementById('rangeFilterCountMin');
+let max = document.getElementById('rangeFilterCountMax');
+let rangoPrecio = [];
+const filtrar = document.getElementById('rangeFilterCount');
+const limpiar = document.getElementById('clearRangeFilter');
+
+
+/* ....................................................................................................... */
 
 function mostrarProductos(productos_array) {
 	datosProductos(productos_array);
 
-	boton_asc.addEventListener('click', function () {
+	boton_asc.addEventListener('click', function () {   // ORDENAR POR PRECIO ASCENDENTE
 		productos_array.sort((a, b) => {
 			return a.cost - b.cost;
 		})
-		espacio_en_html.innerHTML = '';
 		datosProductos(productos_array);
 	});
 
-	boton_desc.addEventListener('click', function () {
+	boton_desc.addEventListener('click', function () {	// ORDENAR POR PRECIO DESCENDENTE
 		productos_array.sort((a, b) => {
 			return b.cost - a.cost;
 		})
-		espacio_en_html.innerHTML = '';
 		datosProductos(productos_array);
 	});
 
-	boton_rel.addEventListener('click', function () {
+	boton_rel.addEventListener('click', function () {	// ORDENAR POR RELEVANCIA EN CANTIDAD DE VENDIDOS
 		productos_array.sort((a, b) => {
 			return b.soldCount - a.soldCount;
 		})
-		espacio_en_html.innerHTML = '';
 		datosProductos(productos_array);
 	});
-}
+
+	filtrar.addEventListener('click', function () { 	// FILTRA LOS ELEMENTOS ENTRE MIN Y MAX DE PRECIO.
+		min = min.value;
+		max = max.value;
+
+		for (let elemento of productos_array) {
+			if (elemento.cost >= min && elemento.cost <= max) {
+				rangoPrecio.push(elemento);
+			}
+		}
+			console.log(rangoPrecio);
+			datosProductos(rangoPrecio);
+
+	});
+
+	limpiar.addEventListener('click', function () {
+		datosProductos(productos_array);
+	});
 
 
-function datosProductos(productos_array) {
 
-	let producto_a_agregar = ``;
+};
 
-	for (let elemento of productos_array) {
-		producto_a_agregar = `<div>
+		/* ....................................................................................................... */
+
+		function datosProductos(productos_array) { 		// MOSTRAR LOS PRODUCTOS PANTALLA
+			espacio_en_html.innerHTML = '';
+			let producto_a_agregar = ``;
+
+			for (let elemento of productos_array) {
+				producto_a_agregar = `<div>
         
         <img src=" ${elemento.image}" alt="${elemento.name}" >
         <h2> ${elemento.name}</h2> 
@@ -52,21 +79,21 @@ function datosProductos(productos_array) {
         </div>
 		<hr>`;
 
-		espacio_en_html.innerHTML += producto_a_agregar;
-	}
-};
+				espacio_en_html.innerHTML += producto_a_agregar;
+			}
+		};
 
+		/* ....................................................................................................... */
 
+		document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", function () {
-
-	fetch(productos_url)
-		.then((respuesta) => respuesta.json())
-		.then((datos) => {
-			productos_array = datos.products;
-			mostrarProductos(productos_array)
-		})
-		.catch(error => alert(error));
-});
+			fetch(productos_url)
+				.then((respuesta) => respuesta.json())
+				.then((datos) => {
+					productos_array = datos.products;
+					mostrarProductos(productos_array)
+				})
+				.catch(error => alert(error));
+		});
 
 
