@@ -3,11 +3,14 @@ let productos_url = "https://japceibal.github.io/emercado-api/cats_products/" + 
 let espacio_en_html = document.getElementById("productos");
 let productos_array = [];
 
-function mostrarProducto(productos_array) {
+const boton_rel = document.getElementById('sortByCount');
+
+
+function datosProductos(productos_array) {
 
 	let producto_a_agregar = ``;
 
-	for (const elemento of productos_array) {
+	for (let elemento of productos_array) {
 		producto_a_agregar = `<div>
         
         <img src=" ${elemento.image}" alt="${elemento.name}" >
@@ -17,18 +20,38 @@ function mostrarProducto(productos_array) {
         <small> ${elemento.soldCount} vendidos. </small>
         </div>
 		<hr>`;
-       
-       espacio_en_html.innerHTML += producto_a_agregar;
+
+		espacio_en_html.innerHTML += producto_a_agregar;
 	}
+};
+
+
+function mostrarProductos(productos_array) {
+	datosProductos(productos_array);
+
+	boton_rel.addEventListener('click', function () {
+
+		productos_array.sort((a, b) => {
+			return b.soldCount - a.soldCount;
+		})
+
+		espacio_en_html.innerHTML = '';
+
+		datosProductos(productos_array);
+
+	});
 }
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
 	fetch(productos_url)
 		.then((respuesta) => respuesta.json())
 		.then((datos) => {
 			productos_array = datos.products;
-			mostrarProducto(productos_array);
+			mostrarProductos(productos_array)
 		})
 		.catch(error => alert(error));
 });
+
+
