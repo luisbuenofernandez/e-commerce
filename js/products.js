@@ -97,14 +97,6 @@ function mostrarProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PROD
 		} 
 	}
 
-	if (nombre_prod.indexOf(texto) === -1 || descripcion_prod.indexOf(texto) === -1) {
-		
-		producto_a_agregar = `<div>
-	<h4> Producto no encontrado... </h4>
-	</div>`;
-		espacio_en_html.innerHTML += producto_a_agregar;
-	} 
-
 
 	boton_asc.addEventListener('click', function () {   // ORDENAR POR PRECIO ASCENDENTE.
 		ordenAsc(productos_array);
