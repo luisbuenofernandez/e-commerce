@@ -1,15 +1,21 @@
-let cat_Id = localStorage.getItem("catID");
-let productos_url = "https://japceibal.github.io/emercado-api/cats_products/" + cat_Id + ".json";
+let cat_id = localStorage.getItem("catID");
+let productos_url = "https://japceibal.github.io/emercado-api/cats_products/" + cat_id + ".json";
 let espacio_en_html = document.getElementById("productos");
 let productos_array = [];
+let lista_original = [];
 
 const boton_rel = document.getElementById('sortByCount');
 const boton_asc = document.getElementById('sortAsc');
 const boton_desc = document.getElementById('sortDesc');
 
 const filtrar = document.getElementById('rangeFilterCount');
+let min = document.getElementById('rangeFilterCountMin');
+let max = document.getElementById('rangeFilterCountMax');
 const limpiar = document.getElementById('clearRangeFilter');
-let lista_original = [];
+
+const buscador = document.getElementById('buscador');
+let nombre_prod = '';
+let descripcion_prod = '';
 
 /* ....................................................................................................... */
 
@@ -17,87 +23,88 @@ function ordenAsc(productos_array) { 		// ORDEN ASCENDENTE DE LOS ELEMENTOS A MO
 	productos_array.sort((a, b) => {
 		return a.cost - b.cost;
 	});
-	/* console.log('Fallo ascendencia'); */
-
-	datosProductos(productos_array);
-
+	mostrarProductos(productos_array);
 };
 
 function ordenDesc(productos_array) {		// ORDEN DESCENDENTE DE LOS ELEMENTOS A MOSTRAR.
 	productos_array.sort((a, b) => {
 		return b.cost - a.cost;
 	});
-	/* console.log('Fallo descendencia'); */
-
-	datosProductos(productos_array);
+	mostrarProductos(productos_array);
 };
 
 function ordenRel(productos_array) {		// ORDEN RELEVANCIA EN VENTAS DE LOS ELEMENTOS A MOSTRAR.
 	productos_array.sort((a, b) => {
 		return b.soldCount - a.soldCount;
 	});
-	/* console.log('Fallo relevanica'); */
-
-	datosProductos(productos_array);
+	mostrarProductos(productos_array);
 };
 
 /* ....................................................................................................... */
 
+filtrar.addEventListener('click', function () { 	// FILTRA LOS ELEMENTOS ENTRE MIN Y MAX DE PRECIO.
+	let rangoPrecio = [];
+	min = parseInt(min.value);
+	max = parseInt(max.value);
 
-function mostrarProductos(productos_array) {
-	datosProductos(productos_array);
-	
-
-	/* boton_asc.addEventListener('click', function () {   // ORDENAR POR PRECIO ASCENDENTE.
-		ordenAsc(productos_array);
-	});
-
-	boton_desc.addEventListener('click', function () {	// ORDENAR POR PRECIO DESCENDENTE.
-		ordenDesc(productos_array);
-	});
-
-	boton_rel.addEventListener('click', function () {	// ORDENAR POR RELEVANCIA EN CANTIDAD DE VENDIDOS.
-		ordenRel(productos_array);
-	}); */
-
-	filtrar.addEventListener('click', function () { 	// FILTRA LOS ELEMENTOS ENTRE MIN Y MAX DE PRECIO.
-		let rangoPrecio = [];
-		let min = document.getElementById('rangeFilterCountMin').value;
-		let max = document.getElementById('rangeFilterCountMax').value;
-	
-		for (let elemento = 0; elemento < lista_original.length; elemento++) {
-			if (lista_original[elemento].cost >= min && lista_original[elemento].cost <= max) {
-				rangoPrecio.push(lista_original[elemento]);
-			};
+	for (let elemento = 0; elemento < lista_original.length; elemento++) {
+		if (lista_original[elemento].cost >= min && lista_original[elemento].cost <= max) {
+			rangoPrecio.push(lista_original[elemento]);
 		};
-		mostrarProductos(rangoPrecio);	});
+	};
+	mostrarProductos(rangoPrecio);
+});
 
-	limpiar.addEventListener('click', function () {
-		document.getElementById('rangeFilterCountMin').value = '';
-		document.getElementById('rangeFilterCountMax').value = '';
-		mostrarProductos(lista_original);
-	});
-};
+limpiar.addEventListener('click', function () {		// LIMPIA TODOS LOS CAMPOS CON TEXTO/NUMEROS Y MUESTRA EL LISTADO ORIGINAL.
+	document.getElementById('rangeFilterCountMin').value = '';
+	document.getElementById('rangeFilterCountMax').value = '';
+	buscador.value = '';
+	mostrarProductos(lista_original);
+});
+
+buscador.addEventListener('input', function () { 	// FILTRA LOS ELEMENTOS POR NOMBRE O DESCRIPCIÓN.
+	mostrarProductos(productos_array);
+});
 
 /* ....................................................................................................... */
 
-function datosProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PRODUCTO EN PANTALLA.
+function mostrarProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PRODUCTO EN PANTALLA.
 	espacio_en_html.innerHTML = '';
 	let producto_a_agregar = ``;
 
+	let texto = buscador.value.toLowerCase();
+
 	for (let elemento of productos_array) {
-		producto_a_agregar = `<div>
-        
+
+		nombre_prod = elemento.name.toLowerCase();
+		descripcion_prod = elemento.description.toLowerCase();
+
+		if (nombre_prod.indexOf(texto) !== -1 || descripcion_prod.indexOf(texto) !== -1) {
+
+			producto_a_agregar = `<div>
+
         <img src=" ${elemento.image}" alt="${elemento.name}" >
         <h2> ${elemento.name}</h2> 
         <h4> ${elemento.currency} ${elemento.cost}</h4>
         <p> ${elemento.description}</p>
         <small> ${elemento.soldCount} vendidos. </small>
+
         </div>
 		<hr>`;
 
-		espacio_en_html.innerHTML += producto_a_agregar;
+			espacio_en_html.innerHTML += producto_a_agregar;
+
+		} 
 	}
+
+	if (nombre_prod.indexOf(texto) === -1 || descripcion_prod.indexOf(texto) === -1) {
+		
+		producto_a_agregar = `<div>
+	<h4> Producto no encontrado... </h4>
+	</div>`;
+		espacio_en_html.innerHTML += producto_a_agregar;
+	} 
+
 
 	boton_asc.addEventListener('click', function () {   // ORDENAR POR PRECIO ASCENDENTE.
 		ordenAsc(productos_array);
@@ -110,7 +117,6 @@ function datosProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PRODUC
 	boton_rel.addEventListener('click', function () {	// ORDENAR POR RELEVANCIA EN CANTIDAD DE VENDIDOS.
 		ordenRel(productos_array);
 	});
-
 };
 
 /* ....................................................................................................... */
