@@ -9,8 +9,6 @@ const boton_asc = document.getElementById('sortAsc');
 const boton_desc = document.getElementById('sortDesc');
 
 const filtrar = document.getElementById('rangeFilterCount');
-let min = document.getElementById('rangeFilterCountMin');
-let max = document.getElementById('rangeFilterCountMax');
 const limpiar = document.getElementById('clearRangeFilter');
 
 const buscador = document.getElementById('buscador');
@@ -44,8 +42,8 @@ function ordenRel(productos_array) {		// ORDEN RELEVANCIA EN VENTAS DE LOS ELEME
 
 filtrar.addEventListener('click', function () { 	// FILTRA LOS ELEMENTOS ENTRE MIN Y MAX DE PRECIO.
 	let rangoPrecio = [];
-	min = parseInt(min.value);
-	max = parseInt(max.value);
+	let min = parseInt(document.getElementById('rangeFilterCountMin').value);
+	let max = parseInt(document.getElementById('rangeFilterCountMax').value);
 
 	for (let elemento = 0; elemento < lista_original.length; elemento++) {
 		if (lista_original[elemento].cost >= min && lista_original[elemento].cost <= max) {
@@ -96,7 +94,6 @@ function mostrarProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PROD
 
 		} 
 	}
-
 
 	boton_asc.addEventListener('click', function () {   // ORDENAR POR PRECIO ASCENDENTE.
 		ordenAsc(productos_array);
