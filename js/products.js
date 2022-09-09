@@ -76,24 +76,22 @@ function mostrarProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PROD
 
 		nombre_prod = elemento.name.toLowerCase();
 		descripcion_prod = elemento.description.toLowerCase();
-
+		
 		if (nombre_prod.indexOf(texto) !== -1 || descripcion_prod.indexOf(texto) !== -1) {
-
-			producto_a_agregar = `<div>
+			producto_a_agregar = `<div class='elementos_mostrados' id='${elemento.id}'>
 
         <img src=" ${elemento.image}" alt="${elemento.name}" >
-        <h2> ${elemento.name}</h2> 
+        <h2> ${elemento.name}</h2>
         <h4> ${elemento.currency} ${elemento.cost}</h4>
         <p> ${elemento.description}</p>
         <small> ${elemento.soldCount} vendidos. </small>
-
         </div>
 		<hr>`;
 
 			espacio_en_html.innerHTML += producto_a_agregar;
-
-		} 
+		}
 	}
+
 
 	boton_asc.addEventListener('click', function () {   // ORDENAR POR PRECIO ASCENDENTE.
 		ordenAsc(productos_array);
@@ -117,9 +115,17 @@ document.addEventListener("DOMContentLoaded", function () {
 		.then((datos) => {
 			productos_array = datos.products;
 			lista_original = productos_array;
-			mostrarProductos(productos_array)
+			mostrarProductos(productos_array);
+
+			// ENTREGA 3.1: GUARDAR EN LOCALSTORAGE Y REDIRIGIR A PRODUCT-INFO.HTML.
+			let productos_mostrados = document.getElementsByClassName('elementos_mostrados');
+			for (const item of productos_mostrados) {
+				item.addEventListener('click', () => {
+					localStorage.setItem('producto_id', item.id);
+					window.location = 'product-info.html';
+				})
+			}
 		})
 		.catch(error => alert(error));
 });
-
 
