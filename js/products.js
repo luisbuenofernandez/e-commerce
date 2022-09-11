@@ -81,8 +81,8 @@ function mostrarProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PROD
 			producto_a_agregar = `<div class='elementos_mostrados' id='${elemento.id}'>
 
         <img src=" ${elemento.image}" alt="${elemento.name}" >
-        <h2> ${elemento.name}</h2>
-        <h4> ${elemento.currency} ${elemento.cost}</h4>
+        <h3> ${elemento.name}</h3>
+        <h6> ${elemento.currency} ${elemento.cost}</h6>
         <p> ${elemento.description}</p>
         <small> ${elemento.soldCount} vendidos. </small>
         </div>
