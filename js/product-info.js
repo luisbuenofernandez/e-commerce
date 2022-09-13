@@ -50,7 +50,8 @@ function comentarios() {     // ENTREGA 3.3: TRAER Y MOSTRAAR COMENTARIOS DEL PR
 
             for (let comentario of comentarios) {
                 producto_a_agregar += `<div class='otros_usuarios'>
-            <strong>${comentario.user}</strong> - ${comentario.dateTime} -  ${stars(comentario.score)}<br>
+            <strong>${comentario.user} -</strong> ${stars(comentario.score)}<br>
+            - ${comentario.dateTime} -  <br>
             ${comentario.description}
             </div>`;
 
@@ -69,9 +70,9 @@ function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
     for (i = 1; i <= 5; i++) {
 
         if (i <= puntos) {
-            score += '<span class="fa fa-star checked"></span>';
+            score += `<span class="fa fa-star checked" id=${i}></span>`;
         } else {
-            score += '<span class="fa fa-star"></span>'
+            score += `<span class="fa fa-star" id=${i}></span>`;
         }
     }
 
@@ -83,12 +84,20 @@ function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
 function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE COMENTARIOS.
     let comentario_usuario;
 
+
     if ('nombreUsuario' in localStorage) {
         comentario_usuario = `
       <form action=""  id="">
       <fieldset>
         <legend>
-          <h5>${usuario}</h5> - ${stars(4)}<br>
+          <h5>${usuario}</h5><br>
+          <div id="mis_estrellas">`;
+
+        for (let i = 1; i <= 5; i++) {
+            comentario_usuario += `<span class="fa fa-star" id="${i}"></span>`;
+        }
+
+        comentario_usuario += `</div>
         </legend> 
         
             <textarea class="comentario" id="mi_comentario" placeholder="Ingrese el texto deseado..."></textarea>
@@ -103,26 +112,64 @@ function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE 
         comentario_usuario = '<p><a href="index.html">Inicie sesión</a> para comentar el producto.</p>'
     }
     document.getElementById('caja_de_comentario').innerHTML = comentario_usuario;
+
+
+
+
 }
 
 /* ....................................................................................................... */
-
-function mi_comentario(usuario, estrellas, hora, fecha) {       // ENTREGABLE 3: DESAFÍO.
-    let btn_comentar = document.getElementById('btn_comentar');
-    let texto = document.getElementById("mi_comentario");
-    btn_comentar.addEventListener('click', () => {
-
-        console.log(`nombreUsuario: ${usuario} - estrellas: ${estrellas} - hora: ${hora} - fecha: ${fecha}`);
-
-        producto_a_agregar = `<div class='otros_usuarios'>
-            <strong>${usuario}</strong> - ${hora} - ${fecha}  -  ${stars(estrellas)}<br>
-            <p>${texto.value}</p>
-            </div>`;
-
-        texto.value = "";
-        otros_usuarios.innerHTML += producto_a_agregar;
+let mi_calificacion;
+function mi_puntaje() {
+    let span_lista = document.getElementById('mis_estrellas');     // Calificar usando las estrellas en la caja de comentario.
+    span_lista.addEventListener('click', (e) => {
+        if (e.target.tagName === 'SPAN') {
+            document.getElementById('mis_estrellas').innerHTML = stars(e.target.id);
+            mi_calificacion = e.target.id;
+        }
     })
 }
+
+
+function mi_comentario(hora, fecha) {       // ENTREGABLE 3: DESAFÍO.
+    let btn_comentar = document.getElementById('btn_comentar');
+    let texto = document.getElementById("mi_comentario");
+
+    mi_puntaje();
+
+    // Desmarcar las estrellas que no entran en la puntuación sólo funciona una vez.
+    // Corroborar/corregir por qué no permite modificar nuevamente.
+
+    btn_comentar.addEventListener('click', () => {
+        console.log(mi_calificacion);
+        // Si mi_calificacion = undefined, mostrar mensaje para que se seleccione una puntucación.
+        // si no ha seleccionado puntaje, no mostrar estrellas.
+
+        if (texto.value != '') {
+            producto_a_agregar = `<div class='otros_usuarios'>
+                    <strong>${localStorage.getItem("nombreUsuario")} -</strong>  ${stars(mi_calificacion)}<br>
+                    - ${hora} - ${fecha}  - 
+                    <p>${texto.value}</p>
+                    </div>`;
+
+            texto.value = "";
+            otros_usuarios.innerHTML += producto_a_agregar;
+
+        }
+    })
+}
+
+
+
+
+
+
+
+// Tomar fecha y hora del momento en que se pulsó click.   dateTime
+
+
+
+
 
 /* ....................................................................................................... */
 
@@ -138,6 +185,6 @@ fetch(PRODUCT_INFO_URL + id_producto + '.json')     // INICIO DE EJECUCIÓN!
         productoInfo(info);
         comentarios();
         caja_de_comentario();
-        mi_comentario(usuario, 4, 17.50, 11.09);
+        mi_comentario("17:50", "11.09.2022");
     })
     .catch(error => alert(error));
