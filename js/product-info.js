@@ -1,6 +1,8 @@
-let id_producto = localStorage.getItem('producto_id');
+// VARIABLES GLOBALES.
+const id_producto = localStorage.getItem('producto_id');
 let calificacion_usuario;
-let guardar_comentarios = [];
+let comentarios_recuperados = [];
+
 /* ....................................................................................................... */
 
 function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR DETALES DEL MISMO.
@@ -35,15 +37,14 @@ function total_comentarios(comentarios) {     // ENTREGA 3.3: TRAER Y MOSTRAAR C
     let comentario_cliente = ``;
 
     for (let comentario of comentarios) {
-        comentario_cliente += `<div>
+        if (comentario !== null){
+            comentario_cliente += `<div>
             <strong>${comentario.user} -</strong> ${stars(comentario.score)}<br>
             - ${comentario.dateTime} -  <br>
             ${comentario.description}
             </div>`;
-
-
+        }
     }
-
 
     document.getElementById('comentarios_totales').innerHTML += comentario_cliente;
 
@@ -77,40 +78,46 @@ function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
 
 
 function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE COMENTARIOS.
+
     let comentario_usuario;
-    if ('nombreUsuario' in localStorage) {
+    if (localStorage.getItem('nombreUsuario')) {
 
         comentario_usuario = `<form action="" id="">
-        <fieldset>
-            <legend>
-                <h5>${usuario}</h5><br>
-                <div id="estrellas_usuario">`;
+            <fieldset>
+                <legend>
+                    <h5>${usuario}</h5><br>
+                    <div id="estrellas_usuario">`;
 
         for (let i = 1; i <= 5; i++) {
             comentario_usuario += `<span class="fa fa-star checked" id="${i}"></span>`;
         }
 
         comentario_usuario += `</div>
-        </legend> 
-        
-            <textarea class="comentario" id="comentario_user" placeholder="Ingrese el texto deseado..."></textarea>
-            <input type="button" value="Comentar" id="btn_comentar">
+                </legend>             
+                <textarea class="comentario" id="comentario_user" placeholder="Ingrese el texto deseado..."></textarea>
+                <div id='error_textarea'></div>
+                <input type="button" value="Comentar" id="btn_comentar">
+        <fieldset>
+        </form>`;
 
-      <fieldset>
-      </form>`;
+        document.getElementById('caja_de_comentario').innerHTML = comentario_usuario;
+        usuario_comentar();
+
     } else {
-        comentario_usuario = '<p><a href="index.html">Inicie sesión</a> para comentar el producto.</p>'
+        comentario_usuario = '<p><a href="index.html">Inicie sesión</a> para comentar el producto.</p>';
+        document.getElementById('caja_de_comentario').innerHTML = comentario_usuario;
+
     }
-    document.getElementById('caja_de_comentario').innerHTML = comentario_usuario;
+
+   
 }
 
 /* ....................................................................................................... */
 
 
-function usuario_puntaje() {
-    let green_stars = document.getElementById('estrellas_usuario');     // Calificar usando las estrellas en la caja de comentario.    
+function usuario_puntaje() {     // Calificar usando las estrellas en la caja de comentario.    
+    let green_stars = document.getElementById('estrellas_usuario');
     green_stars.addEventListener('click', (e) => {
-
         if (e.target.tagName === 'SPAN') {
             green_stars.innerHTML = stars(e.target.id);
             calificacion_usuario = e.target.id;
@@ -120,59 +127,72 @@ function usuario_puntaje() {
 
 
 /* ....................................................................................................... */
+function date_time(){
+    let fecha_hora = new Date();
+        let dia = fecha_hora.getDate();
+        let mes = fecha_hora.getMonth() + 1;
+        let minutos = fecha_hora.getMinutes();
+        let segundos = fecha_hora.getSeconds();
+        
 
+        // Si fecha > 10: agregar 0 delante
+        if (dia < 10){
+            dia = '0' + dia;
+        } 
+
+        if (mes < 10){
+            mes = '0' + mes;
+        }
+
+        // Si minutos > 10: agregar 0 delante
+        if (minutos < 10){
+            minutos = '0' + minutos;
+        }
+
+        //  Si segundos > 10: agregar 0 delante
+        if (segundos < 10){
+            segundos = '0' + segundos;
+        }      
+
+
+        let fecha_actual = `${fecha_hora.getFullYear()}-${mes}-${dia}`;
+        let hora_actual = fecha_hora.getHours() + ":" + minutos + ":" + segundos;
+        return fecha_actual + ' ' + hora_actual;
+
+}
 
 function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO: 
+
     let btn_comentar = document.getElementById('btn_comentar');
-    let user_comentario = [];
+    let comentario_sin_texto = document.getElementById('error_textarea');
     usuario_puntaje();
 
     btn_comentar.addEventListener('click', () => {
-        let current = new Date();
-
-
-        // CORREGIR ESTA PARTE DEL CODIGO CON TUS PALABRAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // CORREGIR ESTA PARTE DEL CODIGO CON TUS PALABRAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // CORREGIR ESTA PARTE DEL CODIGO CON TUS PALABRAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
-        let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
-        let dateTime = cDate + ' ' + cTime;
-        console.log('Día/Hora:' + dateTime);
-
-        // CORREGIR ESTA PARTE DEL CODIGO CON TUS PALABRAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // CORREGIR ESTA PARTE DEL CODIGO CON TUS PALABRAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // CORREGIR ESTA PARTE DEL CODIGO CON TUS PALABRAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        // Si calificación_usuario = undefined, mostrar mensaje para que se seleccione una puntucación.
-        // si no ha seleccionado puntaje, no mostrar estrellas.
-
+        
         let texto_comentario = document.getElementById("comentario_user");
 
+        let user_comment;
         if (texto_comentario.value != '') {
-            let user_comment = {
-                dateTime: dateTime,
+            user_comment = {
+                dateTime: date_time(),                  // fecha_actual + ' ' + hora_actual,
                 description: texto_comentario.value,
                 product: id_producto,
                 score: calificacion_usuario,
                 user: localStorage.getItem("nombreUsuario")
             };
+            comentario_sin_texto.innerHTML = '';
+            calificacion_usuario = 5;
 
-            user_comentario.push(user_comment);
-            console.log(user_comentario);
-
-
-            total_comentarios([user_comment]);
-            texto_comentario.value = "";
-
-            let recuperar = JSON.stringify(user_comentario);            
-            localStorage.setItem('comentarios_' + id_producto, recuperar);
-            
-            
         } else {
-            console.log('Debe ingresar un texto para poder comentar.');
+            comentario_sin_texto.innerHTML = `<small style='color: red'>Debe ingresar un texto para poder comentar.</sma>`
         }
+
+        comentarios_recuperados.push(user_comment);
+        total_comentarios([user_comment]);
+        
+        document.getElementById('estrellas_usuario').innerHTML = stars(5);
+        texto_comentario.value = "";
+        localStorage.setItem('comentarios_' + id_producto, JSON.stringify(comentarios_recuperados));
 
     })
 }
@@ -181,25 +201,20 @@ function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO:
 /* ....................................................................................................... */
 
 function recuperar_comentarios() {      // // ENTREGABLE 3: DESAFÍO - Mostrar comentarios recuperados del local storage.
-    if(localStorage.getItem('comentarios_' + id_producto)){
-        let comentarios_recuperados = JSON.parse(localStorage.getItem('comentarios_' + id_producto));
-        console.log('comentarios_recuperados:' + comentarios_recuperados);
-        total_comentarios(comentarios_recuperados); 
+    if (localStorage.getItem('comentarios_' + id_producto)) {
+        comentarios_recuperados = JSON.parse(localStorage.getItem('comentarios_' + id_producto));
+        total_comentarios(comentarios_recuperados);
     }
 }
 
 /* ....................................................................................................... */
-
-
 
 if (!('producto_id' in localStorage)) {      // Si se intenta entrar directamente a product-info.html sin que haya id_producto guardado, redirige a categories.html
     window.location = 'categories.html';
 }
 
 
-
-
-fetch(PRODUCT_INFO_URL + id_producto + '.json')     // INICIO DE EJECUCIÓN!
+fetch(PRODUCT_INFO_URL + id_producto + '.json')     // INICIO DE EJECUCIÓN.
     .then(response => response.json())
     .then(info => {
         productoInfo(info);
@@ -210,15 +225,9 @@ fetch(PRODUCT_INFO_URL + id_producto + '.json')     // INICIO DE EJECUCIÓN!
                 total_comentarios(comentarios);
                 recuperar_comentarios();
 
-
             })
-            .catch(error => {
-                alert(error)
-            });
+            .catch(error => console.log(error));
 
         caja_de_comentario();
-        usuario_comentar();
     })
-    .catch(error => {
-        alert(error)
-    });
+    .catch(error => console.log(error));
