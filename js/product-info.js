@@ -5,7 +5,7 @@ let comentarios_recuperados = [];
 
 /* ....................................................................................................... */
 
-function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR DETALES DEL MISMO.
+function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR DETALLES DEL MISMO.
 
     let producto_a_agregar = `        
         <h2> ${info.name}</h2>
@@ -47,12 +47,9 @@ function total_comentarios(comentarios) {     // ENTREGA 3.3: TRAER Y MOSTRAAR C
     }
 
     document.getElementById('comentarios_totales').innerHTML += comentario_cliente;
-
 }
 
-
 /* ....................................................................................................... */
-
 
 function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
     let estrellas = '';
@@ -71,11 +68,7 @@ function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
     return estrellas;
 }
 
-
 /* ....................................................................................................... */
-
-
-
 
 function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE COMENTARIOS.
 
@@ -108,12 +101,9 @@ function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE 
         document.getElementById('caja_de_comentario').innerHTML = comentario_usuario;
 
     }
-
-   
 }
 
 /* ....................................................................................................... */
-
 
 function usuario_puntaje() {     // Calificar usando las estrellas en la caja de comentario.    
     let green_stars = document.getElementById('estrellas_usuario');
@@ -125,17 +115,17 @@ function usuario_puntaje() {     // Calificar usando las estrellas en la caja de
     })
 }
 
-
 /* ....................................................................................................... */
+
 function date_time(){
     let fecha_hora = new Date();
         let dia = fecha_hora.getDate();
         let mes = fecha_hora.getMonth() + 1;
         let minutos = fecha_hora.getMinutes();
         let segundos = fecha_hora.getSeconds();
-        
 
-        // Si fecha > 10: agregar 0 delante
+        //Formato para  números < 10;
+
         if (dia < 10){
             dia = '0' + dia;
         } 
@@ -144,22 +134,21 @@ function date_time(){
             mes = '0' + mes;
         }
 
-        // Si minutos > 10: agregar 0 delante
         if (minutos < 10){
             minutos = '0' + minutos;
         }
 
-        //  Si segundos > 10: agregar 0 delante
         if (segundos < 10){
             segundos = '0' + segundos;
         }      
-
 
         let fecha_actual = `${fecha_hora.getFullYear()}-${mes}-${dia}`;
         let hora_actual = fecha_hora.getHours() + ":" + minutos + ":" + segundos;
         return fecha_actual + ' ' + hora_actual;
 
 }
+
+/* ....................................................................................................... */
 
 function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO: 
 
@@ -183,7 +172,7 @@ function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO:
             comentario_sin_texto.innerHTML = '';
             calificacion_usuario = 5;
 
-        } else {
+        } else {    // Mensaje para iniciar sesión y poder comentar.
             comentario_sin_texto.innerHTML = `<small style='color: red'>Debe ingresar un texto para poder comentar.</sma>`
         }
 
@@ -196,7 +185,6 @@ function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO:
 
     })
 }
-
 
 /* ....................................................................................................... */
 
@@ -212,7 +200,6 @@ function recuperar_comentarios() {      // // ENTREGABLE 3: DESAFÍO - Mostrar c
 if (!('producto_id' in localStorage)) {      // Si se intenta entrar directamente a product-info.html sin que haya id_producto guardado, redirige a categories.html
     window.location = 'categories.html';
 }
-
 
 fetch(PRODUCT_INFO_URL + id_producto + '.json')     // INICIO DE EJECUCIÓN.
     .then(response => response.json())
