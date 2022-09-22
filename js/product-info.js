@@ -1,12 +1,12 @@
 // VARIABLES GLOBALES.
-const id_producto = localStorage.getItem('producto_id');
+let id_producto = localStorage.getItem('producto_id');
+console.log(id_producto);
 let calificacion_usuario;
 let comentarios_recuperados = [];
 
 /* ....................................................................................................... */
 
 function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR DETALLES DEL MISMO.
-
     let producto_a_agregar = `        
         <h2> ${info.name}</h2>
         <div>`;
@@ -29,6 +29,7 @@ function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR 
         </div>`;
 
     document.getElementById('datos_producto').innerHTML += producto_a_agregar;
+    ver_relacionados(info);
 }
 
 /* ....................................................................................................... */
@@ -37,7 +38,7 @@ function total_comentarios(comentarios) {     // ENTREGA 3.3: TRAER Y MOSTRAAR C
     let comentario_cliente = ``;
 
     for (let comentario of comentarios) {
-        if (comentario !== null){
+        if (comentario !== null) {
             comentario_cliente += `<div>
             <strong>${comentario.user} -</strong> ${stars(comentario.score)}<br>
             - ${comentario.dateTime} -  <br>
@@ -117,34 +118,34 @@ function usuario_puntaje() {     // Calificar usando las estrellas en la caja de
 
 /* ....................................................................................................... */
 
-function date_time(){
+function date_time() {
     let fecha_hora = new Date();
-        let dia = fecha_hora.getDate();
-        let mes = fecha_hora.getMonth() + 1;
-        let minutos = fecha_hora.getMinutes();
-        let segundos = fecha_hora.getSeconds();
+    let dia = fecha_hora.getDate();
+    let mes = fecha_hora.getMonth() + 1;
+    let minutos = fecha_hora.getMinutes();
+    let segundos = fecha_hora.getSeconds();
 
-        //Formato para  números < 10;
+    //Formato para  números < 10;
 
-        if (dia < 10){
-            dia = '0' + dia;
-        } 
+    if (dia < 10) {
+        dia = '0' + dia;
+    }
 
-        if (mes < 10){
-            mes = '0' + mes;
-        }
+    if (mes < 10) {
+        mes = '0' + mes;
+    }
 
-        if (minutos < 10){
-            minutos = '0' + minutos;
-        }
+    if (minutos < 10) {
+        minutos = '0' + minutos;
+    }
 
-        if (segundos < 10){
-            segundos = '0' + segundos;
-        }      
+    if (segundos < 10) {
+        segundos = '0' + segundos;
+    }
 
-        let fecha_actual = `${fecha_hora.getFullYear()}-${mes}-${dia}`;
-        let hora_actual = fecha_hora.getHours() + ":" + minutos + ":" + segundos;
-        return fecha_actual + ' ' + hora_actual;
+    let fecha_actual = `${fecha_hora.getFullYear()}-${mes}-${dia}`;
+    let hora_actual = fecha_hora.getHours() + ":" + minutos + ":" + segundos;
+    return fecha_actual + ' ' + hora_actual;
 
 }
 
@@ -157,7 +158,7 @@ function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO:
     usuario_puntaje();
 
     btn_comentar.addEventListener('click', () => {
-        
+
         let texto_comentario = document.getElementById("comentario_user");
 
         let user_comment;
@@ -178,7 +179,7 @@ function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO:
 
         comentarios_recuperados.push(user_comment);
         total_comentarios([user_comment]);
-        
+
         document.getElementById('estrellas_usuario').innerHTML = stars(5);
         texto_comentario.value = "";
         localStorage.setItem('comentarios_' + id_producto, JSON.stringify(comentarios_recuperados));
@@ -192,6 +193,41 @@ function recuperar_comentarios() {      // // ENTREGABLE 3: DESAFÍO - Mostrar c
     if (localStorage.getItem('comentarios_' + id_producto)) {
         comentarios_recuperados = JSON.parse(localStorage.getItem('comentarios_' + id_producto));
         total_comentarios(comentarios_recuperados);
+    }
+}
+
+/* ....................................................................................................... */
+
+function ver_relacionados(prod_actual) {    //  ENTREGA - 4.1: MOSTRAR PRODUCTOS RELACIONADOS.
+
+    let prod_relacionados = document.getElementById("prod_relacionados");
+    let anterior_posterior = `<div class="container">
+        <div class="row">
+        <div class="col"></div>
+          <div class="col">
+          <figure id="${prod_actual.relatedProducts[1].id}">
+          <img src="${prod_actual.relatedProducts[1].image}" alt="${prod_actual.relatedProducts[1].name}">
+          <figcaption>${prod_actual.relatedProducts[1].name}</figcaption>
+          </figure>
+          </div>
+          <div class="col">
+          <figure id="${prod_actual.relatedProducts[0].id}">
+          <img src="${prod_actual.relatedProducts[0].image}" alt="${prod_actual.relatedProducts[0].name}">
+          <figcaption>${prod_actual.relatedProducts[0].name}</figcaption>
+          </figure>
+          </div>
+        </div>
+      </div>`;
+
+    prod_relacionados.innerHTML = anterior_posterior;
+
+    let elementos_relacionados = document.getElementsByTagName('figure');
+    console.log(elementos_relacionados);
+    for (let elemento of elementos_relacionados) {
+        elemento.addEventListener('click', () => {
+            localStorage.setItem('producto_id', elemento.id);
+            window.location = 'product-info.html';
+        })
     }
 }
 

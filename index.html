@@ -19,10 +19,8 @@
     }
   </style>
 
-  <script>    // Si ya hay nombre de ususario en localStorage, redirige a portada sin pasar por login.
-    if (localStorage.getItem('nombreUsuario')){
-    location.href = "portada.html";
-}
+  <script>    // Eliminar usuario al cerrar sesión.
+    localStorage.removeItem("nombreUsuario");
   </script>
 </head>
 

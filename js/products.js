@@ -1,5 +1,6 @@
 let cat_id = localStorage.getItem("catID");
-let productos_url = "https://japceibal.github.io/emercado-api/cats_products/" + cat_id + ".json";
+let productos_url = PRODUCTS_URL + cat_id + ".json";
+
 let espacio_en_html = document.getElementById("productos");
 let productos_array = [];
 let lista_original = [];
