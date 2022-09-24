@@ -79,13 +79,12 @@ function mostrarProductos(productos_array) { 		// MOSTRAR LOS DATOS DE CADA PROD
 		descripcion_prod = elemento.description.toLowerCase();
 		
 		if (nombre_prod.indexOf(texto) !== -1 || descripcion_prod.indexOf(texto) !== -1) {
-			producto_a_agregar = `<div class='elementos_mostrados' id='${elemento.id}'>
-
-        <img src=" ${elemento.image}" alt="${elemento.name}" >
-        <h3> ${elemento.name}</h3>
+			producto_a_agregar = `<div class='elementos_mostrados row' id='${elemento.id}'>
+			<div class="col-3"><img src=" ${elemento.image}" alt="${elemento.name}"></div>
+		<div class="col"><h3> ${elemento.name}</h3>
         <h6> ${elemento.currency} ${elemento.cost}</h6>
         <p> ${elemento.description}</p>
-        <small> ${elemento.soldCount} vendidos. </small>
+        <small> ${elemento.soldCount} vendidos. </small></div>
         </div>
 		<hr>`;
 

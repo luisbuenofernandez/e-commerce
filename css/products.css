@@ -24,7 +24,6 @@ h2 {
     background-color:  rgb(191, 244, 158);
     text-align: center;
     margin-top: 5%;
-    margin-bottom: 5%;
     padding: 5px;
     border: 2px dashed grey;
     border-radius: 2rem;
@@ -55,7 +54,7 @@ body {
 }
 
 img {
-    height: 125px;
+    width: 75%;
     border-style: solid;
     border-color: rgb(107, 135, 159);
     border-radius: 5px;

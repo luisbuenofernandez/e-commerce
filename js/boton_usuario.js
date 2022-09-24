@@ -13,7 +13,7 @@ const dropdown = `<div class="dropdown">
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <li><a class="dropdown-item" href="my-profile.html">${usuario}</a></li>
     <li><a class="dropdown-item" href="cart.html">Carrito</a></li>
-    <li id="borrar_usuario"><a class="dropdown-item" href="index.html">Cerrar Sesión</a></li>
+    <li><a class="dropdown-item" href="index.html">Cerrar Sesión</a></li>
   </ul>
 </div>`;
 
