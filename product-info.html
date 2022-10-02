@@ -40,33 +40,36 @@
   <main>
     <div>
 
-<!-- ------------------------------------------------- -->
+      <!-- ------------------------------------------------- -->
 
-    <div class="container"> 
+      <div class="container">
         <section id="datos_producto">
           <!-- Datos del producto -->
         </section>
 
         <article id="comentarios">
-          <br><h5>Comentarios</h5>
-
+          <h5>Comentarios</h5>
           <div id="comentarios_totales">
             <!-- Mostrar los comentarios de usuarios -->
           </div>
-
-          <div id="caja_de_comentario">
-            <!-- Caja de comentarios habilitada si el usuario ha iniciado sesión previamente -->
+          <div class="container">
+            <div class="row">
+              <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <div id="caja_de_comentario" class="col-sm">
+                  <!-- Caja de comentarios habilitada si el usuario ha iniciado sesión previamente -->
+                </div>
+                <div id="prod_relacionados" class="col-sm">
+                  <!-- Mostrar productos relacionados -->
+                </div>
+              </div>
+            </div>
           </div>
-        </article>  
-        
-        <article id="prod_relacionados">
-          <!-- Mostrar productos relacionados -->
         </article>
       </div>
-        
-<!-- ------------------------------------------------- -->
 
-      
+      <!-- ------------------------------------------------- -->
+
+
     </div>
     </div>
   </main>
@@ -94,4 +97,5 @@
   <script src="js/product-info.js"></script>
   <script src="js/boton_usuario.js"></script>
 </body>
+
 </html>

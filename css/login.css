@@ -1,8 +1,5 @@
 .login {                        /* div class = "login" */
-    margin-left: 25%;
-    margin-right: 25%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin: 5%;
     text-align: center;
 
     background-color: rgb(231, 246, 251);
@@ -18,12 +15,9 @@
     border-style: dashed;
 }
 
-button {                        /* boton inicar sesion */
+#entrar {                        /* boton inicar sesion */
     border-radius: 2rem;
-    border-style: solid;
-    border-color: rgb(3, 113, 216);
-    background-color: rgb(0, 132, 255);
-    color: white;
+    font-weight: bold;
 }
 
 #error {                        /* mensaje de campos faltantes */

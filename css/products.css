@@ -1,4 +1,57 @@
-h1 {
+img {
+    width: 75%;
+    
+}
+.checked {
+    color: rgb(0, 223, 82);
+}
+
+#comentar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+textarea { 
+    width: 100%;
+    
+    border-radius: 2rem;
+    border: 2px dashed grey;
+    padding: 15px;
+
+}
+
+#comentarios_totales div {
+    margin: 5px;
+    border-radius: 2rem;    
+    
+    border: 2px dashed grey;
+    padding: 15px;
+}
+
+#modalComentar {
+    display: inline;
+    margin-right: 5px;
+    margin-bottom: 0px;
+}
+
+.btn {
+    border-radius: 2rem;
+    margin: 1%
+
+}
+
+.btn-group, button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1px;
+}
+
+.btn-group { 
+    margin: none;
+}
+
+/* h1 {
     text-align: center;
 }
 
@@ -52,17 +105,9 @@ body {
 #datos_producto div {
     padding: 20px;
 }
+ */
 
-img {
-    width: 75%;
-    border-style: solid;
-    border-color: rgb(107, 135, 159);
-    border-radius: 5px;
-    justify-items: normal;
-    margin: 10px;
-    
-}
-
+/* 
 hr {
 
     margin: 0%;
@@ -75,19 +120,9 @@ hr {
 
     margin-left: 5%;
     margin-right: 5%;
-}    
+}     */
 
-#comentarios_totales div {
-    
-    margin: 5px;
-    border-radius: 2rem;    
-    
-    border: 2px dashed grey;
-    padding: 15px;
-    
-   
-    background-color: rgb(233, 237, 241);
-}
+
 
 /* #mi_comentario {                         EN CASO DE QUERER USAR EL ESTILO ANTERIOR, DESELECCIONAR ESTE BLOQUE.
     background-color: whitesmoke;
@@ -98,26 +133,4 @@ hr {
     
 } */
 
-textarea { 
-    width: 100%;
-    
-    border-radius: 2rem;
-    border: 2px dashed grey;
-    padding: 15px;
 
-}
-
-.checked {
-    color: rgb(0, 223, 82);
-}
-
-#btn_comentar {
-    background-color:  rgb(191, 244, 158);
-    text-align: center;
-    font-weight: bold;
-    
-    padding: 5px;
-    border: 2px solid grey;
-    border-radius: 2rem;
-
-}
