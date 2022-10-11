@@ -11,6 +11,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/products.css">
 </head>
 
 <body>
@@ -38,10 +39,51 @@
     </div>
   </nav>
   <main>
+
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+    <h2 class="text-center">Carrito de compras</h2>
+      <h5 class="text-center text-muted">Artículos a coprar</h5>
+
+      <table class="table">
+        <thead>
+          <tr class="row">
+            <th class="col-sm-1"></th>
+
+            <th scope="col" class="col-sm-2">Imagen</th>
+            <th scope="col" class="col-sm-2">Producto</th>
+            <th scope="col" class="col-sm-2">Costo</th>
+            <th scope="col" class="col-sm-2">Cantidad</th>
+            <th scope="col" class="col-sm-2">Subtotal</th>
+            <th class="col-sm-1"></th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <!-- Total de productos agregados al carrito -->
+        </tbody>
+      </table>
+
+      <hr>
+      <h6 class="text-center text-muted">Controles gráficos</h6>
+      <h5>Tipo de envío:</h5>
+      <form action="">
+        <input type="radio" name="premium" value="15"id="envio_tipo">
+        <label for="15">Premium 2 a 5 días (15%).</label>
+
+        <input type="radio" name="express" value="7"id="envio_tipo">
+                <label for="15">Express.</label>
+
+        <input type="radio" name="standard" value="15"id="envio_tipo">
+        <label for="15">Standard.</label>
+
+        <h5> Dirección de envío:</h5>
+        Calle<input type="text" name="" id="">
+        Número<input type="text" name="" id="">
+        Esquina<input type="text" name="" id="">
+        
+
+               
+      </form>
+      
     </div>
   </main>
   <footer class="text-muted">

@@ -2,6 +2,11 @@ let id_producto = localStorage.getItem('producto_id');
 let user_name = localStorage.getItem("nombreUsuario");
 let calificacion_usuario;
 let comentarios_recuperados = [];
+let nueva_compra;
+let productos_carrito = JSON.parse(localStorage.getItem("productos_por_comprar"));
+console.log(productos_carrito);
+console.log(typeof(productos_carrito));
+
 
 /* ....................................................................................................... */
 
@@ -34,12 +39,35 @@ function carousel(images) {     //  Entrega 4 - DESAFÍO:
 
 /* ....................................................................................................... */
 
+
+function guardarCompra(nueva_compra) {         // ENTREGA 5 - DESAFÍO:
+        
+    nueva_compra = {
+        count: 1,
+        currency: nueva_compra.currency,
+        id: id_producto,
+        image: nueva_compra.images[0],
+        name: nueva_compra.name,
+        unitCost: nueva_compra.cost,
+        subtotal: nueva_compra.cost
+    }
+
+    console.log(nueva_compra)
+    productos_carrito.push(nueva_compra);
+    console.log(productos_carrito)
+
+
+    productos_carrito = JSON.stringify(productos_carrito);
+    localStorage.setItem("productos_por_comprar", productos_carrito);
+}
+
+
 function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR DETALLES DEL MISMO.
     let producto_a_agregar = `
         <div class="text-center p-4">
         <h2> ${info.name}</h2>
         </div>
-        ${carousel(info.images, info.description)}
+        ${carousel(info.images)}
         <br>
         <div>
         <h5 id="desc_prod">${info.description}</h5><br> 
@@ -48,11 +76,17 @@ function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR 
             <h5>Precio</h5>
             <p> ${info.currency} ${info.cost}</p>
             <h5>Cantidad de vendidos</h5>
-            <p> ${info.soldCount} vendidos. </p>            
+            <p> ${info.soldCount} vendidos. </p>     
+            <button class="btn btn-primary" type="button" id="comprar">Comprar</button>       
         </div>`;
 
     document.getElementById('datos_producto').innerHTML += producto_a_agregar;
+    document.getElementById("comprar").addEventListener("click", () => {
+        guardarCompra(info);
+    })
+
     ver_relacionados(info);
+
 }
 
 /* ....................................................................................................... */
@@ -109,11 +143,11 @@ function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE 
                             <h5 id="modalComentar">${user_name} -   </h5>
                             <div id="estrellas_usuario" >`;
 
-                for (let i = 1; i <= 5; i++) {
-                    comentario_usuario += `<span class="fa fa-star checked" id="${i}"></span>`;
-                }
+        for (let i = 1; i <= 5; i++) {
+            comentario_usuario += `<span class="fa fa-star checked" id="${i}"></span>`;
+        }
 
-                comentario_usuario += `</div>
+        comentario_usuario += `</div>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body ">
@@ -249,7 +283,7 @@ function ver_relacionados(prod_actual) {    //  ENTREGA - 4.1: MOSTRAR PRODUCTOS
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="container">
-                            <div class="modal-body row">`;      
+                            <div class="modal-body row">`;
 
     for (let relacionado of prod_actual.relatedProducts) {
 
@@ -260,7 +294,7 @@ function ver_relacionados(prod_actual) {    //  ENTREGA - 4.1: MOSTRAR PRODUCTOS
             </div>
         </div>`;
     }
-    
+
     anterior_posterior += `</div>
                         </div>
                     </div>

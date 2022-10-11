@@ -1,7 +1,12 @@
 img {
     width: 75%;
-    
 }
+
+.img-carrito {
+    height: 50px;
+    width: auto;
+}
+
 .checked {
     color: rgb(0, 223, 82);
 }
