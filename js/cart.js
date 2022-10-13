@@ -1,14 +1,29 @@
 const USER_ID = 25801;
 let articulo;
 
+function recuperarCompra(peugeot208) {
+    let productos_carrito = [];
+
+    if (localStorage.getItem("productos_por_comprar")) {
+        productos_carrito = JSON.parse(localStorage.getItem("productos_por_comprar"));
+    }
+
+    productos_carrito.unshift(peugeot208);
+
+    for (const prod of productos_carrito) {
+        prod.subtotal = prod.count * prod.unitCost;
+    }
+
+    productosEnCarrito(productos_carrito);
+}
+
 function productosEnCarrito(a_comprar) {         // ENTREGA 5.1 - 
-    console.log(a_comprar)
     let tbody = document.getElementById("tbody");
-    tbody.innerHTML = "";
     let newProduct;
 
-    for (let i = 0; i < a_comprar.length; i++) {
+    tbody.innerHTML = "";
 
+    for (let i = 0; i < a_comprar.length; i++) {
 
         newProduct = `<tr class="row">
             <td class="col-sm-1"></td>
@@ -19,51 +34,36 @@ function productosEnCarrito(a_comprar) {         // ENTREGA 5.1 -
            <td class="col-sm" id="subtotal-${i}"> ${a_comprar[i].currency} ${a_comprar[i].subtotal}</td>
            <td class="col-sm-1"></td>
          </tr>`;
+
         tbody.innerHTML += newProduct;
-        
+
     }
-    calcularSubtotal(a_comprar);
+
+    manipularSubtotal(a_comprar);
 }
 
-function calcularSubtotal(mis_productos) {        // ENTREGA 5.3 - MODIFICAR SUBTOTAL EN TIEMPO REAL
-
+function manipularSubtotal(mis_productos) {        // ENTREGA 5.3 - MODIFICAR SUBTOTAL EN TIEMPO REAL
     let input_number = document.getElementsByClassName("input_number");
 
     for (let i = 0; i < input_number.length; i++) {
 
-        input_number[i].addEventListener("click", () => {        // Buscar/agregar "key up" a la funcion como etodo de entrada. Buscar como hacerlo 
-
-            console.log(input_number[i].id)
-            let subtotal = document.getElementById(`subtotal-${i}`);
-            subtotal.innerHTML = "";
-            subtotal.innerHTML += `${mis_productos[i].currency} ${input_number[i].value * mis_productos[i].unitCost}`;
+        input_number[i].addEventListener("click", () => {        
+            calcularSubtotal(mis_productos[i], i, input_number[i].value);
+        })
+        input_number[i].addEventListener("keyup", () => {        
+            calcularSubtotal(mis_productos[i], i, input_number[i].value);
         })
     }
 }
 
-
-function recuperarCompra(cart_info) {
-
-    let productos_carrito = localStorage.getItem("productos_por_comprar");
-    productos_carrito = JSON.parse(productos_carrito);
-    productos_carrito.unshift(cart_info);
-
-    for (const prod of productos_carrito) {
-        prod.subtotal = prod.count * prod.unitCost;
-
-    }
-
-    console.log(productos_carrito);
-/*     productos_carrito.filter();
- */    console.log(productos_carrito);
-
-
-    productosEnCarrito(productos_carrito);
+function calcularSubtotal(producto_a_calcular, indice, cantidad) {
+    let subtotal = document.getElementById(`subtotal-${indice}`);
+    subtotal.innerHTML = "";
+    subtotal.innerHTML += `${producto_a_calcular.currency} ${cantidad * producto_a_calcular.unitCost}`;
 }
 
 
-
-fetch(CART_INFO_URL + USER_ID + ".json")
+fetch(CART_INFO_URL + USER_ID + EXT_TYPE)
     .then(response => response.json())
     .then(data => {
         data = data.articles[0];

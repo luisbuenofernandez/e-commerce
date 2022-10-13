@@ -1,11 +1,11 @@
 let id_producto = localStorage.getItem('producto_id');
+console.log(id_producto);
+console.log(typeof(id_producto));
+
 let user_name = localStorage.getItem("nombreUsuario");
 let calificacion_usuario;
 let comentarios_recuperados = [];
 let nueva_compra;
-let productos_carrito = JSON.parse(localStorage.getItem("productos_por_comprar"));
-console.log(productos_carrito);
-console.log(typeof(productos_carrito));
 
 
 /* ....................................................................................................... */
@@ -41,24 +41,40 @@ function carousel(images) {     //  Entrega 4 - DESAFÍO:
 
 
 function guardarCompra(nueva_compra) {         // ENTREGA 5 - DESAFÍO:
-        
+    let productos_carrito = [];
+    let prod_repetido = false;
+
+    if (localStorage.getItem("productos_por_comprar")) {
+        productos_carrito = JSON.parse(localStorage.getItem("productos_por_comprar"));
+    }
+
     nueva_compra = {
         count: 1,
         currency: nueva_compra.currency,
         id: id_producto,
         image: nueva_compra.images[0],
         name: nueva_compra.name,
-        unitCost: nueva_compra.cost,
-        subtotal: nueva_compra.cost
+        unitCost: nueva_compra.cost
     }
 
-    console.log(nueva_compra)
-    productos_carrito.push(nueva_compra);
-    console.log(productos_carrito)
+    for (const prod of productos_carrito) {
+        if (prod.id === nueva_compra.id) {
+            prod_repetido = true;
+            console.log(`el prod. ${prod.name} con id: ${prod.id} se estaría repitiendo y por lo tanto no será agregado a la lista!`);
 
+        }
+    }
+
+    if (!prod_repetido) {
+        console.log("nueva compra");
+        console.log(nueva_compra)
+        productos_carrito.push(nueva_compra);
+        console.log(productos_carrito);
+    }
 
     productos_carrito = JSON.stringify(productos_carrito);
     localStorage.setItem("productos_por_comprar", productos_carrito);
+
 }
 
 
@@ -81,9 +97,15 @@ function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR 
         </div>`;
 
     document.getElementById('datos_producto').innerHTML += producto_a_agregar;
-    document.getElementById("comprar").addEventListener("click", () => {
-        guardarCompra(info);
-    })
+
+    if (id_producto != 50924) {
+
+        document.getElementById("comprar").addEventListener("click", () => {
+            guardarCompra(info);
+        })
+    } else {
+        console.log("Peugeot 208")
+    }
 
     ver_relacionados(info);
 
