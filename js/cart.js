@@ -47,21 +47,14 @@ function manipularSubtotal(mis_productos) {        // ENTREGA 5.3 - MODIFICAR SU
 
     for (let i = 0; i < input_number.length; i++) {
 
-        input_number[i].addEventListener("click", () => {        
-            calcularSubtotal(mis_productos[i], i, input_number[i].value);
-        })
-        input_number[i].addEventListener("keyup", () => {        
-            calcularSubtotal(mis_productos[i], i, input_number[i].value);
+        input_number[i].addEventListener("input", () => {
+            console.log(i)
+            let subtotal = document.getElementById(`subtotal-${i}`);
+            subtotal.innerHTML = "";
+            subtotal.innerHTML += `${mis_productos[i].currency} ${input_number[i].value * mis_productos[i].unitCost}`;
         })
     }
 }
-
-function calcularSubtotal(producto_a_calcular, indice, cantidad) {
-    let subtotal = document.getElementById(`subtotal-${indice}`);
-    subtotal.innerHTML = "";
-    subtotal.innerHTML += `${producto_a_calcular.currency} ${cantidad * producto_a_calcular.unitCost}`;
-}
-
 
 fetch(CART_INFO_URL + USER_ID + EXT_TYPE)
     .then(response => response.json())
