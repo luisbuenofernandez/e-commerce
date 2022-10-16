@@ -1,17 +1,12 @@
-let id_producto = localStorage.getItem('producto_id');
-console.log(id_producto);
-console.log(typeof(id_producto));
-
-let user_name = localStorage.getItem("nombreUsuario");
+const id_producto = localStorage.getItem('producto_id');
+const user_name = localStorage.getItem("nombreUsuario");
 let calificacion_usuario;
 let comentarios_recuperados = [];
 let nueva_compra;
 
-
 /* ....................................................................................................... */
 
 function carousel(images) {     //  Entrega 4 - DESAFÍO:
-
     let fotos = `<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
@@ -37,9 +32,6 @@ function carousel(images) {     //  Entrega 4 - DESAFÍO:
     return fotos;
 }
 
-/* ....................................................................................................... */
-
-
 function guardarCompra(nueva_compra) {         // ENTREGA 5 - DESAFÍO:
     let productos_carrito = [];
     let prod_repetido = false;
@@ -60,23 +52,17 @@ function guardarCompra(nueva_compra) {         // ENTREGA 5 - DESAFÍO:
     for (const prod of productos_carrito) {
         if (prod.id === nueva_compra.id) {
             prod_repetido = true;
-            console.log(`el prod. ${prod.name} con id: ${prod.id} se estaría repitiendo y por lo tanto no será agregado a la lista!`);
-
         }
     }
 
     if (!prod_repetido) {
-        console.log("nueva compra");
-        console.log(nueva_compra)
         productos_carrito.push(nueva_compra);
-        console.log(productos_carrito);
     }
 
     productos_carrito = JSON.stringify(productos_carrito);
     localStorage.setItem("productos_por_comprar", productos_carrito);
 
 }
-
 
 function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR DETALLES DEL MISMO.
     let producto_a_agregar = `
@@ -99,22 +85,15 @@ function productoInfo(info) {   // ENTREGA 3.2: TOMAR ID DEL PRODUCTO Y MOSTRAR 
     document.getElementById('datos_producto').innerHTML += producto_a_agregar;
 
     if (id_producto != 50924) {
-
         document.getElementById("comprar").addEventListener("click", () => {
             guardarCompra(info);
         })
-    } else {
-        console.log("Peugeot 208")
-    }
+    } 
 
     ver_relacionados(info);
-
 }
 
-/* ....................................................................................................... */
-
 function total_comentarios(comentarios) {     // ENTREGA 3.3: TRAER Y MOSTRAAR COMENTARIOS DEL PRODUCTO.
-
     for (let i = 0; i < comentarios.length; i++) {
 
         if (comentarios[i] !== null) {
@@ -127,8 +106,6 @@ function total_comentarios(comentarios) {     // ENTREGA 3.3: TRAER Y MOSTRAAR C
         }
     }
 }
-
-/* ....................................................................................................... */
 
 function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
     let estrellas = '';
@@ -146,13 +123,10 @@ function stars(puntos) {     // CALIFICACIÓN DEL PRODUCTO CON ESTRELLAS.
     return estrellas;
 }
 
-/* ....................................................................................................... */
-
 function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE COMENTARIOS.
-
     let comentario_usuario;
-    if (localStorage.getItem('nombreUsuario')) {
 
+    if (localStorage.getItem('nombreUsuario')) {
         comentario_usuario = ` 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Comentar
@@ -195,8 +169,6 @@ function caja_de_comentario() {     // SI USER EN LOCALSTORAGE, MOSTRAR CAJA DE 
     }
 }
 
-/* ....................................................................................................... */
-
 function usuario_puntaje() {     // Calificar usando las estrellas en la caja de comentario.    
     let green_stars = document.getElementById('estrellas_usuario');
     green_stars.addEventListener('click', (e) => {
@@ -206,8 +178,6 @@ function usuario_puntaje() {     // Calificar usando las estrellas en la caja de
         }
     })
 }
-
-/* ....................................................................................................... */
 
 function date_time() {
     let fecha_hora = new Date();
@@ -240,19 +210,15 @@ function date_time() {
 
 }
 
-/* ....................................................................................................... */
-
 function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO: 
-
     let btn_comentar = document.getElementById('btn_comentar');
     let comentario_sin_texto = document.getElementById('error_textarea');
     usuario_puntaje();
 
     btn_comentar.addEventListener('click', () => {
-
         let texto_comentario = document.getElementById("comentario_user");
-
         let user_comment;
+
         if (texto_comentario.value != '') {
             user_comment = {
 
@@ -275,11 +241,8 @@ function usuario_comentar() {       // ENTREGABLE 3: DESAFÍO:
         document.getElementById('estrellas_usuario').innerHTML = stars(5);
         texto_comentario.value = "";
         localStorage.setItem('comentarios_' + id_producto, JSON.stringify(comentarios_recuperados));
-
     })
 }
-
-/* ....................................................................................................... */
 
 function recuperar_comentarios() {      // // ENTREGABLE 3: DESAFÍO - Mostrar comentarios recuperados del local storage.
     if (localStorage.getItem('comentarios_' + id_producto)) {
@@ -288,11 +251,9 @@ function recuperar_comentarios() {      // // ENTREGABLE 3: DESAFÍO - Mostrar c
     }
 }
 
-/* ....................................................................................................... */
-
 function ver_relacionados(prod_actual) {    //  ENTREGA - 4.1: MOSTRAR PRODUCTOS RELACIONADOS.
-
     let prod_relacionados = document.getElementById("prod_relacionados");
+    let elementos_relacionados = document.getElementsByClassName('card');
     let anterior_posterior = `
             <button type="button" class="btn btn-outline-default" data-bs-toggle="modal" data-bs-target="#ver_relacionados">
                 Relacionados
@@ -325,7 +286,6 @@ function ver_relacionados(prod_actual) {    //  ENTREGA - 4.1: MOSTRAR PRODUCTOS
 
     prod_relacionados.innerHTML = anterior_posterior;
 
-    let elementos_relacionados = document.getElementsByClassName('card');
     for (let card of elementos_relacionados) {
         card.addEventListener('click', () => {
             localStorage.setItem('producto_id', card.id);

@@ -16,12 +16,11 @@ img {
     padding-bottom: 0px;
 }
 
-textarea { 
+textarea, input[type="text"], input[type="number"]{ 
     width: 100%;
-    
     border-radius: 2rem;
     border: 2px dashed grey;
-    padding: 15px;
+    padding: 5px;
 
 }
 
@@ -55,6 +54,15 @@ textarea {
 .btn-group { 
     margin: none;
 }
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  .envio {
+    width: 100%;
+  }
 
 /* h1 {
     text-align: center;
