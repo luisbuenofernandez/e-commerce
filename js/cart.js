@@ -46,7 +46,7 @@ function manipularSubtotal(mis_productos) {        // E5.3 - MODIFICAR SUBTOTAL 
         input_number[i].addEventListener("input", () => {
             let subtotal = document.getElementById(`subtotal-${i}`);
             subtotal.innerHTML = "";
-            subtotal.innerHTML += `${mis_productos[i].currency} ${input_number[i].value * mis_productos[i].unitCost}`;
+            subtotal.innerHTML += ` ${a_comprar[i].currency} ${a_comprar[i].subtotal}`;
         })
     }
 }
