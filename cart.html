@@ -38,49 +38,150 @@
       </div>
     </div>
   </nav>
+
+  <!-- ------------------------------------------------- -->
+
   <main>
-<!-- ------------------------------------------------- -->
     <div class="container">
       <h2 class="text-center">Carrito de compras</h2> <!-- E5.1 - TABLA PARA MOSTRAR INFO DE CADA PRODUCTO AÑADIDO -->
-      <h4 class="text-center">Artículos a coprar</h4>
+      <h4 class="text-center">Artículos a coprar:</h4>
 
-      <table class="table">
+      <table class="table row">
         <thead>
-          <tr class="row text-center">
+          <tr class="text-center">
             <th scope="col" class="col-3">Imagen</th>
             <th scope="col" class="col-3">Producto</th>
             <th scope="col" class="col-2">Costo</th>
-            <th scope="col" class="col-2" >Cantidad</th>
+            <th scope="col" class="col-2">Cantidad</th>
             <th scope="col" class="col-2">Subtotal</th>
           </tr>
         </thead>
 
         <tbody id="tbody">
-          <!-- Esta parte del ejercicio se realiza desde JS. -->
+          <!-- 
+            Esta parte del ejercicio se realiza desde JS,
+            se encarga de mostrar los productos guardados en carrito
+        -->
         </tbody>
       </table>
 
-      <form class="row"> <!-- E5.2 - CONTROLES GRÁFICOS PARA ENVIO DE COMPRA -->
-        <fieldset class="col-sm-6">
-          <legend class="text-center">Dirección de envío</legend>      
-            <label for="calle">Calle: <input id="calle" class="envio" name="calle" type="text" required></label>
-            <label for="numero">Número: <input id="numero" class="envio" name="numero" type="number" required></label>
-            <label for="esquina">Esquina: <input id="esquina" class="envio" name="esquina" type="text" required></label>
+      <form class="row" id="formulario_carrito">
+
+        <!-- E5.2 - CONTROLES GRÁFICOS PARA ENVIO DE COMPRA -->
+
+        <fieldset class="">
+          <legend class="text-center">Dirección de envío:</legend>
+
+          <label for="calle" class="form-label">Calle: <input id="calle" class="envio form-control" name="calle" type="text" required></label>
+          <label for="numero">Número: <input id="numero" class="envio form-control" name="numero" type="number" required></label>
+          <label for="esquina">Esquina: <input id="esquina" class="envio form-control" name="esquina" type="text" required></label
+        </fieldset>
+
+        <fieldset class="">
+          <legend class="text-center">Tipo de envío:</legend>
+          <label for="premium"  class=" form-label"><input type="radio" name="tipo_de_envio" value="15" id="premium"> 15% - Premium: 2 a 5 días.</label>
+          <label for="express"  class=" form-label"><input type="radio" name="tipo_de_envio" value="7" id="express"> 7% - Express: 5 a 8 días.</label>
+          <label for="standard"  class=" form-label"><input type="radio"  name="tipo_de_envio" value="5" id="standard" checked> 5% - Standard: 12 a 15 días.</label>
+        </fieldset>
+
+        <fieldset>
+          <legend class="text-center">Costo:</legend>
+
+          <div id="subtotal">
+            <p><strong>Subtotal: </strong> Costo unitario del producto por cantidad.</p>
+            <p id="montoSubtotal">
+              <!-- Aquí se agregará el subtotal desde JS -->
+            </p>
+          </div>
+          <hr>
+
+          <div id="envio">
+            <p><strong>Costro de envío: </strong> Según el tipo de envío.</p>
+            <div id="costoEnvio">
+              <!-- Aquí se agregará el monto a pagar respectivo al envío desde JS -->
+            </div>
+          </div>
+
+          <hr>
+          <div id="total">
+            <p><strong>Total: </strong> Monto final a pagar en USD.</p>
+            <div id="montoFinal">
+              <!-- Aquí se agregará el monto final a pagar desde JS -->
+            </div>
+          </div>
+          <hr>
         </fieldset>
         
-        <fieldset class="col-sm-6">
-          <legend class="text-center">Tipo de envio</legend>
-          <label for="premium"><input type="radio" name="tipo_de_envio" value="15" id="premium"> Premium: 2 a 5 días (15%).</label>
-          <label for="express"><input type="radio" name="tipo_de_envio" value="7" id="express"> Express: 5 a 8 días (7%).</label>
-          <label for="standard"><input type="radio" name="tipo_de_envio" value="15" id="standard"> Standard: 12 a 15 días (5%).</label>
+
+        <fieldset>
+          <legend class="text-center">Forma de pago:</legend>
+
+          <div>
+            <a type="button" href="#" data-bs-toggle="modal" id="modal" data-bs-target="#exampleModal">
+              Seleccionar medio de pago.
+            </a>
+
+            <div>   <!-- MODAL - FORMA DE PAGO-->
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Forma de pago:</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+          
+                      <label for="t_credito">
+                        <input type="radio" class="forma_de_pago" name="forma_de_pago" value="t_credito" id="t_credito" checked> 
+                        Tarjeta de crédito.
+                      </label>
+          
+                      <label for="nro_tarjeta" class="">
+                        Número de tarjeta: 
+                        <input id="nro_tarjeta" class="t_credito " name="nro_tarjeta" type="text" required>
+                      </label>
+          
+                      <label for="cod_seguridad" class="">
+                        Código de seguridad: 
+                        <input id="cod_seguridad" class="t_credito " name="cod_seguridad" type="text" required>
+                      </label>
+                      
+                      <label for="vencimiento" class="">
+                        Vencimiento: 
+                        <input id="vencimiento" class="t_credito " name="vencimiento" type="date" required>
+                      </label>
+          
+                      <hr>
+          
+                      <label for="t_bancaria">
+                        <input type="radio" class="forma_de_pago" name="forma_de_pago" value="t_bancaria" id="t_bancaria">
+                         Transferencia bancaria.
+                      </label>
+                    
+                      <label for="nro_cuenta" class="" >
+                        Número de cuenta: 
+                        <input id="nro_cuenta" class="" name="t_bancaria" type="text" required>
+                      </label>
+          
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id=""></div>
+
+          </div>
         </fieldset>
 
-        <button class="btn btn-primary" type="button" id="continuar_compra">Siguiente</button>       
-
+        <button class="btn btn-primary" type="submit" id="finalizar_compra">Finalizar Compra</button>
       </form>
     </div>
-  <!-- ------------------------------------------------- -->
   </main>
+  
+  <!-- ------------------------------------------------- -->
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
