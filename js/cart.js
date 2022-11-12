@@ -48,7 +48,7 @@ function manipularSubtotal(mis_productos) {        // E5.3 - MODIFICAR SUBTOTAL 
             let subtotal_html = document.getElementById(`subtotal-${i}`);
             
             let a = input_number[i].value;
-            let b =1;
+            let b = 0;
             subtotal_html.innerHTML = "";
             subtotal_html.innerHTML += `${mis_productos[i].currency} ${input_number[i].value * mis_productos[i].unitCost}`;
         
@@ -58,25 +58,13 @@ function manipularSubtotal(mis_productos) {        // E5.3 - MODIFICAR SUBTOTAL 
 
             if (a > b) {
                 subtotal_gral += mis_productos[i].unitCost;
-                console.log("sumar")
-                b++;
-                console.log(a)
-                console.log(b)
-                
+                b = a;
                 costos();
             }  else {
                 subtotal_gral -= mis_productos[i].unitCost * input_number[i].value;
-                console.log("restaer")
-                
-
-                console.log(a)
-                console.log(b)
+                b = a;
                 costos();
             }
-
-            
-            
-
         })
 
         if (mis_productos[i].currency === "UYU") {
